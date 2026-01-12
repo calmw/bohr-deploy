@@ -56,12 +56,102 @@ if [ "$VALIDATOR_ADDR" = "001" ]; then
   echo "提取的哈希值为: $RIALTO_HASH"
 fi
 
+DESC="Val${VALIDATOR_INDEX}"
+
+#######################################
+# 4. 检查是否已注册 StakeHub
+#######################################
+echo "==> Checking validator registration..."
+
+
+CONS_ADDR_RAW=$($BIN_DIR/bootnode -nodekey ${KEYS_DIR}/nodekey -writeaddress)
+CONS_ADDR="0x${CONS_ADDR_RAW: -40}"
+echo "CONS_ADDR = $CONS_ADDR"
+
+KEYFILE=$(ls $KEYS_DIR/validator/keystore | head -n1)
+VALIDATOR_ADDR="0x${KEYFILE##*--}"
+echo "VALIDATOR_ADDR = $VALIDATOR_ADDR"
+
+if [ "$VALIDATOR_INDEX" == "001" ]; then
+  echo "validator address: ${VALIDATOR_ADDR}"
+      echo "HTTP: ${HTTP_PORT}, WS: ${WS_PORT}"
+
+      echo "validator address: ${VALIDATOR_ADDR}"
+      echo "HTTP: ${HTTP_PORT}, WS: ${WS_PORT}"
+      cd $DATA_DIR &&  $BIN_DIR/geth \
+        --config ${DATA_DIR}/config.toml \
+        --datadir "${DATA_DIR}" \
+        --port "${P2P_PORT}" \
+        --nodekey ${DATA_DIR}/geth/nodekey \
+        --password ${DATA_DIR}/password.txt \
+        --unlock ${VALIDATOR_ADDR} \
+        --blspassword ${DATA_DIR}/password.txt \
+        --mine --miner.etherbase ${VALIDATOR_ADDR} --vote \
+        --db.engine ${DB_ENGINE} \
+        --gcmode ${GC_MODE} \
+        --miner.gasprice ${MINER_GAS_PRICE} \
+        --miner.gaslimit ${MINER_GAS_LIMIT} \
+        --http --http.addr 0.0.0.0 --http.port ${HTTP_PORT} --http.api "${HTTP_API}" \
+        --ws --ws.addr 0.0.0.0 --ws.port ${WS_PORT} --ws.api "${WS_API}" \
+        --metrics --metrics.addr 0.0.0.0 --metrics.port ${METRICS_PORT} --metrics.expensive \
+        --pprof --pprof.addr 0.0.0.0 --pprof.port ${PPROF_PORT} \
+        --rialtohash ${RIALTO_HASH} \
+        --rpc.allow-unprotected-txs \
+        --rpc.txfeecap 1000 \
+        --allow-insecure-unlock \
+        --override.passedforktime 0 \
+        --override.lorentz 0 \
+        --override.maxwell 0 \
+        --ipcpath /tmp/geth.ipc \
+        --log.format terminal \
+        --log.rotate \
+        --log.maxsize 100 \
+        --log.maxage 7 \
+        --log.compress &
+else
+    echo "==> Starting validator node..."
+
+    echo "Address: ${VALIDATOR_ADDR}"
+    echo "HTTP: ${HTTP_PORT}, WS: ${WS_PORT}"
+
+    cd $DATA_DIR &&  $BIN_DIR/geth \
+      --config ${DATA_DIR}/config.toml \
+      --datadir "${DATA_DIR}" \
+      --port "${P2P_PORT}" \
+      --bootnodes "${ENODE_URL}" \
+      --nodekey ${DATA_DIR}/geth/nodekey \
+      --password ${DATA_DIR}/password.txt \
+      --unlock ${VALIDATOR_ADDR} \
+      --blspassword ${DATA_DIR}/password.txt \
+      --db.engine ${DB_ENGINE} \
+      --gcmode ${GC_MODE} \
+      --miner.gasprice ${MINER_GAS_PRICE} \
+      --miner.gaslimit ${MINER_GAS_LIMIT} \
+      --http --http.addr 0.0.0.0 --http.port ${HTTP_PORT} --http.api "${HTTP_API}" \
+      --ws --ws.addr 0.0.0.0 --ws.port ${WS_PORT} --ws.api "${WS_API}" \
+      --metrics --metrics.addr 0.0.0.0 --metrics.port ${METRICS_PORT} --metrics.expensive \
+      --pprof --pprof.addr 0.0.0.0 --pprof.port ${PPROF_PORT} \
+      --rialtohash ${RIALTO_HASH} \
+      --rpc.allow-unprotected-txs \
+      --rpc.txfeecap 1000 \
+      --allow-insecure-unlock \
+      --override.passedforktime 0 \
+      --override.lorentz 0 \
+      --override.maxwell 0 \
+      --ipcpath /tmp/geth.ipc \
+      --log.format terminal \
+      --log.rotate \
+      --log.maxsize 100 \
+      --log.maxage 7 \
+      --log.compress &
+fi
+
 function register_stakehub_single(){
     echo "==> Waiting for chain to be ready..."
 
     sleep 45  # 等待链启动 RPC ready
 
-    DESC="Val${VALIDATOR_INDEX}"
+
 
     echo "==> Waiting for validator ${VALIDATOR_ADDR} to receive funds..."
     echo "    RPC URL: http://127.0.0.1:8545"
@@ -124,103 +214,50 @@ function register_stakehub_single(){
             --rpc-url $RPC_URL)
     echo "${TX}"
     echo "StakeHub registration and staking check complete."
-    # 如果是新增验证节点，重亲启动挖矿
-    echo "==> 启动挖矿..."
-    pkill -f "geth"
-    sleep 5
-    echo "validator address: ${VALIDATOR_ADDR}"
-    echo "HTTP: ${HTTP_PORT}, WS: ${WS_PORT}"
+    if [ "$VALIDATOR_INDEX" != "001" ]; then
+      # 如果是新增验证节点，重亲启动挖矿
+          echo "==> 启动挖矿..."
+          pkill -f "geth"
+          sleep 5
+          echo "validator address: ${VALIDATOR_ADDR}"
+          echo "HTTP: ${HTTP_PORT}, WS: ${WS_PORT}"
 
-    echo "validator address: ${VALIDATOR_ADDR}"
-    echo "HTTP: ${HTTP_PORT}, WS: ${WS_PORT}"
-    cd $DATA_DIR &&  $BIN_DIR/geth \
-      --config ${DATA_DIR}/config.toml \
-      --datadir "${DATA_DIR}" \
-      --port "${P2P_PORT}" \
-      --nodekey ${DATA_DIR}/geth/nodekey \
-      --password ${DATA_DIR}/password.txt \
-      --unlock ${VALIDATOR_ADDR} \
-      --blspassword ${DATA_DIR}/password.txt \
-      --mine --miner.etherbase ${VALIDATOR_ADDR} --vote \
-      --db.engine ${DB_ENGINE} \
-      --gcmode ${GC_MODE} \
-      --miner.gasprice ${MINER_GAS_PRICE} \
-      --miner.gaslimit ${MINER_GAS_LIMIT} \
-      --http --http.addr 0.0.0.0 --http.port ${HTTP_PORT} --http.api "${HTTP_API}" \
-      --ws --ws.addr 0.0.0.0 --ws.port ${WS_PORT} --ws.api "${WS_API}" \
-      --metrics --metrics.addr 0.0.0.0 --metrics.port ${METRICS_PORT} --metrics.expensive \
-      --pprof --pprof.addr 0.0.0.0 --pprof.port ${PPROF_PORT} \
-      --rialtohash ${RIALTO_HASH} \
-      --rpc.allow-unprotected-txs \
-      --rpc.txfeecap 1000 \
-      --allow-insecure-unlock \
-      --override.passedforktime 0 \
-      --override.lorentz 0 \
-      --override.maxwell 0 \
-      --ipcpath /tmp/geth.ipc \
-      --log.format terminal \
-      --log.rotate \
-      --log.maxsize 100 \
-      --log.maxage 7 \
-      --log.compress &
+          echo "validator address: ${VALIDATOR_ADDR}"
+          echo "HTTP: ${HTTP_PORT}, WS: ${WS_PORT}"
+          cd $DATA_DIR &&  $BIN_DIR/geth \
+            --config ${DATA_DIR}/config.toml \
+            --datadir "${DATA_DIR}" \
+            --port "${P2P_PORT}" \
+            --nodekey ${DATA_DIR}/geth/nodekey \
+            --password ${DATA_DIR}/password.txt \
+            --unlock ${VALIDATOR_ADDR} \
+            --blspassword ${DATA_DIR}/password.txt \
+            --mine --miner.etherbase ${VALIDATOR_ADDR} --vote \
+            --db.engine ${DB_ENGINE} \
+            --gcmode ${GC_MODE} \
+            --miner.gasprice ${MINER_GAS_PRICE} \
+            --miner.gaslimit ${MINER_GAS_LIMIT} \
+            --http --http.addr 0.0.0.0 --http.port ${HTTP_PORT} --http.api "${HTTP_API}" \
+            --ws --ws.addr 0.0.0.0 --ws.port ${WS_PORT} --ws.api "${WS_API}" \
+            --metrics --metrics.addr 0.0.0.0 --metrics.port ${METRICS_PORT} --metrics.expensive \
+            --pprof --pprof.addr 0.0.0.0 --pprof.port ${PPROF_PORT} \
+            --rialtohash ${RIALTO_HASH} \
+            --rpc.allow-unprotected-txs \
+            --rpc.txfeecap 1000 \
+            --allow-insecure-unlock \
+            --override.passedforktime 0 \
+            --override.lorentz 0 \
+            --override.maxwell 0 \
+            --ipcpath /tmp/geth.ipc \
+            --log.format terminal \
+            --log.rotate \
+            --log.maxsize 100 \
+            --log.maxage 7 \
+            --log.compress &
+    fi
+
 }
 
-
-#######################################
-# 4. 检查是否已注册 StakeHub
-#######################################
-echo "==> Checking validator registration..."
-
-
-CONS_ADDR_RAW=$($BIN_DIR/bootnode -nodekey ${KEYS_DIR}/nodekey -writeaddress)
-CONS_ADDR="0x${CONS_ADDR_RAW: -40}"
-echo "CONS_ADDR = $CONS_ADDR"
-
-KEYFILE=$(ls $KEYS_DIR/validator/keystore | head -n1)
-VALIDATOR_ADDR="0x${KEYFILE##*--}"
-echo "VALIDATOR_ADDR = $VALIDATOR_ADDR"
-
-
-
-#######################################
-# 6. 启动验证节点,同步区块
-#######################################
-
-# Start geth node but without registering immediately
-echo "==> Starting validator node..."
-
-echo "Address: ${VALIDATOR_ADDR}"
-echo "HTTP: ${HTTP_PORT}, WS: ${WS_PORT}"
-cd $DATA_DIR &&  $BIN_DIR/geth \
-  --config ${DATA_DIR}/config.toml \
-  --datadir "${DATA_DIR}" \
-  --port "${P2P_PORT}" \
-  --bootnodes "${ENODE_URL}" \
-  --nodekey ${DATA_DIR}/geth/nodekey \
-  --password ${DATA_DIR}/password.txt \
-  --unlock ${VALIDATOR_ADDR} \
-  --blspassword ${DATA_DIR}/password.txt \
-  --db.engine ${DB_ENGINE} \
-  --gcmode ${GC_MODE} \
-  --miner.gasprice ${MINER_GAS_PRICE} \
-  --miner.gaslimit ${MINER_GAS_LIMIT} \
-  --http --http.addr 0.0.0.0 --http.port ${HTTP_PORT} --http.api "${HTTP_API}" \
-  --ws --ws.addr 0.0.0.0 --ws.port ${WS_PORT} --ws.api "${WS_API}" \
-  --metrics --metrics.addr 0.0.0.0 --metrics.port ${METRICS_PORT} --metrics.expensive \
-  --pprof --pprof.addr 0.0.0.0 --pprof.port ${PPROF_PORT} \
-  --rialtohash ${RIALTO_HASH} \
-  --rpc.allow-unprotected-txs \
-  --rpc.txfeecap 1000 \
-  --allow-insecure-unlock \
-  --override.passedforktime 0 \
-  --override.lorentz 0 \
-  --override.maxwell 0 \
-  --ipcpath /tmp/geth.ipc \
-  --log.format terminal \
-  --log.rotate \
-  --log.maxsize 100 \
-  --log.maxage 7 \
-  --log.compress &
 
 # Check if registered
 REGISTER_FLAG="${DATA_DIR}/stake_registered"
@@ -228,7 +265,6 @@ if [ -f "${REGISTER_FLAG}" ]; then
     echo "==> StakeHub 已注册，跳过"
 else
     echo "==> 首次启动，执行 register"
-
 
     # Once geth is running, register the validator
     register_stakehub_single
