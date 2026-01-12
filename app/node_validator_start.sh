@@ -25,8 +25,7 @@ echo "  Validator Startup Script"
 echo "=============================="
 
 # check keys
-if [ -f "${DATA_DIR}/password.txt" ]; then
-#    echo "初始化目录已存在，禁止重复初始化：$DATA_DIR"
+if [ -f "${KEYS_DIR}/password.txt" ]; then
   echo "密钥目录已存在：$KEYS_DIR"
   echo "已初始化过，跳过密钥生成。"
 else
