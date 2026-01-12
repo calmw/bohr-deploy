@@ -95,7 +95,7 @@ WSModules = []
 MaxPeers = 50
 NoDiscovery = false
 BootstrapNodes = [
-    "enode://9c8f27d6f209168774c496dc135e2b9cb6f0bf59843cc1fb0870ac53a7b6205157414e7a61b17212aec7db7ccd69d316c861b5627e0ec590980bbc593576ebc4@172.22.0.11:30303"
+    "enode://1354ce4460bae4e6e41fde49a43899ba4950ba843335427a30bd5a7eadaa3790b1a2e2d2163f7a02c480078b3064e130b7f281b86b97940cabeff0bbdebb430d@172.22.0.11:30303"
 ]
 StaticNodes = []
 TrustedNodes = []
@@ -114,3 +114,11 @@ IdleTimeout = 120000000000
 Enable = false
 Addr = ""
 Port = 0
+
+[Node.LogConfig]
+FilePath = "clog.log"
+TimeFormat = "01-02|15:04:05.000"
+MaxBackups = 1000
+MaxBytesSize = 10485760
+Level = "info"
+FileRoot = ""

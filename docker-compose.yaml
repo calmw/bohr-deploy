@@ -7,12 +7,12 @@ networks:
 
 services:
   generate_genesis:
-    image: calmw/generate_genesis_bohr:v0.0.1
+#    image: calmw/generate_genesis_bohr:v0.0.3
+    image: calmw/generate_genesis_bohr:v0.0.4 # gas
     container_name: generate_genesis
     networks:
       chain_net:
         ipv4_address: 172.22.0.10
-    restart: always
     environment:
       BASE_DIR: "/app"
       DATA_DIR: "/data/app"
@@ -24,7 +24,8 @@ services:
       - ./app:/data/app
     command: [ "bash", "-x", "/app/generate_genesis.sh" ]
   validator_node_one:
-    image: calmw/chain_bohr:v0.0.1
+#    image: calmw/chain_bohr:v0.0.3
+    image: calmw/chain_bohr:v0.0.4 # gas
     container_name: validator_node_one
     networks:
       chain_net:
@@ -59,7 +60,7 @@ services:
       - "30301:30303/udp"
     command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]
   validator_node_two:
-    image: calmw/chain_bohr:v0.0.1
+    image: calmw/chain_bohr:v0.0.3
     container_name: validator_node_two
     networks:
       chain_net:
@@ -94,7 +95,7 @@ services:
       - "30302:30303/udp"
     command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]
   validator_node_three:
-    image: calmw/chain_bohr:v0.0.1
+    image: calmw/chain_bohr:v0.0.3
     container_name: validator_node_three
     networks:
       chain_net:
@@ -129,7 +130,7 @@ services:
       - "30303:30303/udp" 
     command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]
   validator_node_four:
-    image: calmw/chain_bohr:v0.0.1
+    image: calmw/chain_bohr:v0.0.3
     container_name: validator_node_four
     networks:
       chain_net:
@@ -164,7 +165,7 @@ services:
       - "30304:30303/udp"
     command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]
   validator_node_five:
-    image: calmw/chain_bohr:v0.0.1
+    image: calmw/chain_bohr:v0.0.3
     container_name: validator_node_five
     networks:
       chain_net:
@@ -199,7 +200,7 @@ services:
       - "30305:30303/udp"
     command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]
   validator_node_six:
-    image: calmw/chain_bohr:v0.0.1
+    image: calmw/chain_bohr:v0.0.3
     container_name: validator_node_six
     networks:
       chain_net:
@@ -234,7 +235,7 @@ services:
       - "30306:30303/udp"
     command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]
   validator_node_seven:
-    image: calmw/chain_bohr:v0.0.1
+    image: calmw/chain_bohr:v0.0.3
     container_name: validator_node_seven
     networks:
       chain_net:
