@@ -61,7 +61,7 @@ function register_stakehub_single(){
 
     sleep 45  # 等待链启动 RPC ready
 
-    DESC="Val${VALIDATOR_ADDR}"
+    DESC="Val${VALIDATOR_INDEX}"
 
     echo "==> Waiting for validator ${VALIDATOR_ADDR} to receive funds..."
     echo "    RPC URL: http://127.0.0.1:8545"
