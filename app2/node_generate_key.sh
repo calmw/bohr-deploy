@@ -17,7 +17,7 @@ echo "$PASSWORD" > "$KEYS_DIR/password.txt"
 
 echo ">>> 生成 BLS 密钥"
 mkdir -p "$KEYS_DIR/bls"
-$BIN_DIR/geth bls account new --datadir $KEYS_DIR --blspassword "$KEYS_DIR/password.txt"
+$BIN_DIR/geth bls account new --datadir $KEYS_DIR --blspassword "$KEYS_DIR/bls/password.txt"
 
 echo ">>> 生成验证者密钥"
 mkdir -p "$KEYS_DIR/validator"
