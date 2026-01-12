@@ -55,7 +55,7 @@ EnableQuickBlockFetching = true
 [Node.P2P]
 MaxPeers = 50
 BootstrapNodes = [
-    "enode://a0638ed85253c7e7e2e527a09435580de2da3b554add5fc28aff6e8d9b8ea14bd200aa99991b15f10f4164b4e83be27d1e2557e302920f7eb71472cbda3e72d7@172.22.0.11:30303"
+    "enode://bdbae7a221748657424650676c9a262a1bd27e124714aeed5b3b32cbffccb11cfdf664942a34ecd981f52216da6be9e0edbdb2eda967bf6d563b80474684228d@172.22.0.11:30303"
 ]
 NoDiscovery = false
 StaticNodes = []
