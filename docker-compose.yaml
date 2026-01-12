@@ -7,7 +7,7 @@ networks:
 
 services:
   generate_genesis:
-    image: calmw/generate_genesis_bohr:v0.0.1
+    image: calmw/generate_genesis_bohr:v0.0.2
     container_name: generate_genesis
     networks:
       chain_net:
