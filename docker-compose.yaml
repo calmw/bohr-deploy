@@ -7,7 +7,7 @@ networks:
 
 services:
   generate_genesis:
-    image: calmw/generate_genesis_bohr:v0.0.2
+    image: calmw/generate_genesis_bohr:v0.0.1
     container_name: generate_genesis
     networks:
       chain_net:
@@ -50,10 +50,11 @@ services:
       MINER_GAS_PRICE: "1000000000"
       MINER_GAS_LIMIT: "35000000"
       VALIDATOR_INDEX: "001"
-      RIALTO_HASH: "0x06c529a8477c3c73fbc8d6d8941b9413bf759742a7acb959bf46169070800a8e"
+      RIALTO_HASH: "0x1b953692f112969e2bafa9c48477815ddb1f0bc8fd609a92711c977716911ea2"
     volumes:
       - ./app:/data/app
     ports:
+      - "8541:8545"
       - "30301:30303"
       - "30301:30303/udp"
     command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]
@@ -84,10 +85,11 @@ services:
       MINER_GAS_PRICE: "1000000000"
       MINER_GAS_LIMIT: "35000000"
       VALIDATOR_INDEX: "002"
-      RIALTO_HASH: "0x06c529a8477c3c73fbc8d6d8941b9413bf759742a7acb959bf46169070800a8e"
+      RIALTO_HASH: "0x1b953692f112969e2bafa9c48477815ddb1f0bc8fd609a92711c977716911ea2"
     volumes:
       - ./app2:/data/app
     ports:
+      - "8542:8545"
       - "30302:30303"
       - "30302:30303/udp"
     command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]
@@ -118,10 +120,11 @@ services:
       MINER_GAS_PRICE: "1000000000"
       MINER_GAS_LIMIT: "35000000"
       VALIDATOR_INDEX: "003"
-      RIALTO_HASH: "0x06c529a8477c3c73fbc8d6d8941b9413bf759742a7acb959bf46169070800a8e"
+      RIALTO_HASH: "0x1b953692f112969e2bafa9c48477815ddb1f0bc8fd609a92711c977716911ea2"
     volumes:
       - ./app3:/data/app
     ports:
+      - "8543:8545"
       - "30303:30303" 
       - "30303:30303/udp" 
     command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]
@@ -156,6 +159,7 @@ services:
     volumes:
       - ./app4:/data/app
     ports:
+      - "8544:8545"
       - "30304:30303"
       - "30304:30303/udp"
     command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]
@@ -190,6 +194,7 @@ services:
     volumes:
       - ./app5:/data/app
     ports:
+      - "8545:8545"
       - "30305:30303"
       - "30305:30303/udp"
     command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]
@@ -224,6 +229,7 @@ services:
     volumes:
       - ./app6:/data/app
     ports:
+      - "8546:8545"
       - "30306:30303"
       - "30306:30303/udp"
     command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]
@@ -258,6 +264,7 @@ services:
     volumes:
       - ./app7:/data/app
     ports:
+      - "8547:8545"
       - "30307:30303"
       - "30307:30303/udp"
     command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]

@@ -1,31 +1,55 @@
 [Eth]
 NetworkId = 968
 SyncMode = "full"
+DisablePeerTxBroadcast = false
+EVNNodeIDsToAdd = []
+EVNNodeIDsToRemove = []
+EthDiscoveryURLs = []
+SnapDiscoveryURLs = []
+BscDiscoveryURLs = []
 NoPruning = false
 NoPrefetch = false
+DirectBroadcast = false
+DisableSnapProtocol = false
+RangeLimit = false
+JournalFileEnabled = false
 DatabaseCache = 512
 DatabaseFreezer = ""
+PruneAncientData = false
 TrieCleanCache = 256
 TrieDirtyCache = 256
-TriesInMemory = 128
 TrieTimeout = 3600000000000
+SnapshotCache = 0
+TriesInMemory = 128
+TriesVerifyMode = "local"
+Preimages = false
+FilterLogCacheSize = 0
 EnablePreimageRecording = false
-EVNNodeIDsToAdd = []
+VMTrace = ""
+VMTraceJsonConfig = ""
+RPCGasCap = 0
+RPCEVMTimeout = 0
+RPCTxFeeCap = 0e+00
+BlobExtraReserve = 0
 
 [Eth.Miner]
+GasFloor = 0
 GasCeil = 35000000
 GasPrice = 1000000000
 Recommit = 10000000000
-MaxWaitProposalInSecs = 3
+VoteEnable = false
+DisableVoteAttestation = false
 
 [Eth.Miner.Mev]
 Enabled = true
 GreedyMergeTx = true
-BuilderFeeCeil= "0"
+BuilderFeeCeil = "0"
+SentryURL = ""
 ValidatorCommission = 1000
 
 [[Eth.Miner.Mev.Builders]]
-Address = "0x04d63aBCd2b9b1baa327f2Dda0f873F197ccd186"
+Address = "0x04d63abcd2b9b1baa327f2dda0f873f197ccd186"
+URL = ""
 
 [Eth.TxPool]
 Locals = []
@@ -34,45 +58,59 @@ Journal = "transactions.rlp"
 Rejournal = 3600000000000
 PriceLimit = 1000000000
 PriceBump = 10
-AccountSlots = 200
-GlobalSlots = 8000
-AccountQueue = 200
-GlobalQueue = 4000
+AccountSlots = 16
+GlobalSlots = 4096
+AccountQueue = 64
+GlobalQueue = 1024
+OverflowPoolSlots = 0
 Lifetime = 10800000000000
+ReannounceTime = 0
+
+[Eth.BlobPool]
+Datadir = ""
+Datacap = 0
+PriceBump = 0
+
+[Eth.GPO]
+Blocks = 0
+Percentile = 0
+MaxHeaderHistory = 0
+MaxBlockHistory = 0
 
 [Node]
+DataDir = ""
+InsecureUnlockAllowed = true
+EnableEVNFeatures = true
+EnableQuickBlockFetching = true
 IPCPath = "geth.ipc"
 HTTPHost = "0.0.0.0"
-InsecureUnlockAllowed = true
 HTTPPort = 8545
 HTTPVirtualHosts = ["*"]
 HTTPModules = ["eth", "mev", "net", "web3", "txpool", "parlia", "debug"]
 WSHost = "0.0.0.0"
-WSPort = 8546
-EnableEVNFeatures = true
-EnableQuickBlockFetching = true
+WSPort = 8545
+WSModules = []
 
 [Node.P2P]
 MaxPeers = 50
-BootstrapNodes = [
-    "enode://a0638ed85253c7e7e2e527a09435580de2da3b554add5fc28aff6e8d9b8ea14bd200aa99991b15f10f4164b4e83be27d1e2557e302920f7eb71472cbda3e72d7@172.22.0.11:30303"
-]
 NoDiscovery = false
+BootstrapNodes = [
+    "enode://bdbae7a221748657424650676c9a262a1bd27e124714aeed5b3b32cbffccb11cfdf664942a34ecd981f52216da6be9e0edbdb2eda967bf6d563b80474684228d@172.22.0.11:30303"
+]
 StaticNodes = []
 TrustedNodes = []
+ListenAddr = ":30303"
+DiscAddr = ""
 EnableMsgEvents = false
-EVNNodeIdsWhitelist = []
-ProxyedValidatorAddresses = []
+PeerFilterPatterns = []
 
 [Node.HTTPTimeouts]
 ReadTimeout = 30000000000
+ReadHeaderTimeout = 0
 WriteTimeout = 30000000000
 IdleTimeout = 120000000000
 
-[Node.LogConfig]
-FilePath = "clog.log"
-TimeFormat = "01-02|15:04:05.000"
-MaxBackups = 1000
-MaxBytesSize = 10485760
-Level = "info"
-FileRoot = ""
+[FakeBeacon]
+Enable = false
+Addr = ""
+Port = 0
