@@ -87,6 +87,7 @@ services:
       MINER_GAS_LIMIT: "35000000"
       VALIDATOR_INDEX: "002"
       RIALTO_HASH: "0x1b953692f112969e2bafa9c48477815ddb1f0bc8fd609a92711c977716911ea2"
+      ENODE_URL: "enode://1354ce4460bae4e6e41fde49a43899ba4950ba843335427a30bd5a7eadaa3790b1a2e2d2163f7a02c480078b3064e130b7f281b86b97940cabeff0bbdebb430d@172.22.0.11:30303"
     volumes:
       - ./app2:/data/app
     ports:

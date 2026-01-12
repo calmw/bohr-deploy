@@ -74,46 +74,43 @@ echo "VALIDATOR_ADDR = $VALIDATOR_ADDR"
 
 if [ "$VALIDATOR_INDEX" == "001" ]; then
   echo "validator address: ${VALIDATOR_ADDR}"
-      echo "HTTP: ${HTTP_PORT}, WS: ${WS_PORT}"
-
-      echo "validator address: ${VALIDATOR_ADDR}"
-      echo "HTTP: ${HTTP_PORT}, WS: ${WS_PORT}"
-      cd $DATA_DIR &&  $BIN_DIR/geth \
-        --config ${DATA_DIR}/config.toml \
-        --datadir "${DATA_DIR}" \
-        --port "${P2P_PORT}" \
-        --nodekey ${DATA_DIR}/geth/nodekey \
-        --password ${DATA_DIR}/password.txt \
-        --unlock ${VALIDATOR_ADDR} \
-        --blspassword ${DATA_DIR}/password.txt \
-        --mine --miner.etherbase ${VALIDATOR_ADDR} --vote \
-        --db.engine ${DB_ENGINE} \
-        --gcmode ${GC_MODE} \
-        --miner.gasprice ${MINER_GAS_PRICE} \
-        --miner.gaslimit ${MINER_GAS_LIMIT} \
-        --http --http.addr 0.0.0.0 --http.port ${HTTP_PORT} --http.api "${HTTP_API}" \
-        --ws --ws.addr 0.0.0.0 --ws.port ${WS_PORT} --ws.api "${WS_API}" \
-        --metrics --metrics.addr 0.0.0.0 --metrics.port ${METRICS_PORT} --metrics.expensive \
-        --pprof --pprof.addr 0.0.0.0 --pprof.port ${PPROF_PORT} \
-        --rialtohash ${RIALTO_HASH} \
-        --rpc.allow-unprotected-txs \
-        --rpc.txfeecap 1000 \
-        --allow-insecure-unlock \
-        --override.passedforktime 0 \
-        --override.lorentz 0 \
-        --override.maxwell 0 \
-        --ipcpath /tmp/geth.ipc \
-        --log.format terminal \
-        --log.rotate \
-        --log.maxsize 100 \
-        --log.maxage 7 \
-        --log.compress &
+    echo "HTTP: ${HTTP_PORT}, WS: ${WS_PORT}"
+    echo "validator address: ${VALIDATOR_ADDR}"
+    echo "HTTP: ${HTTP_PORT}, WS: ${WS_PORT}"
+    cd $DATA_DIR &&  $BIN_DIR/geth \
+      --config ${DATA_DIR}/config.toml \
+      --datadir "${DATA_DIR}" \
+      --port "${P2P_PORT}" \
+      --nodekey ${DATA_DIR}/geth/nodekey \
+      --password ${DATA_DIR}/password.txt \
+      --unlock ${VALIDATOR_ADDR} \
+      --blspassword ${DATA_DIR}/password.txt \
+      --db.engine ${DB_ENGINE} \
+      --gcmode ${GC_MODE} \
+      --mine --miner.etherbase ${VALIDATOR_ADDR} --vote \
+      --miner.gasprice ${MINER_GAS_PRICE} \
+      --miner.gaslimit ${MINER_GAS_LIMIT} \
+      --http --http.addr 0.0.0.0 --http.port ${HTTP_PORT} --http.api "${HTTP_API}" \
+      --ws --ws.addr 0.0.0.0 --ws.port ${WS_PORT} --ws.api "${WS_API}" \
+      --metrics --metrics.addr 0.0.0.0 --metrics.port ${METRICS_PORT} --metrics.expensive \
+      --pprof --pprof.addr 0.0.0.0 --pprof.port ${PPROF_PORT} \
+      --rialtohash ${RIALTO_HASH} \
+      --rpc.allow-unprotected-txs \
+      --rpc.txfeecap 1000 \
+      --allow-insecure-unlock \
+      --override.passedforktime 0 \
+      --override.lorentz 0 \
+      --override.maxwell 0 \
+      --ipcpath /tmp/geth.ipc \
+      --log.format terminal \
+      --log.rotate \
+      --log.maxsize 100 \
+      --log.maxage 7 \
+      --log.compress &
 else
     echo "==> Starting validator node..."
-
     echo "Address: ${VALIDATOR_ADDR}"
     echo "HTTP: ${HTTP_PORT}, WS: ${WS_PORT}"
-
     cd $DATA_DIR &&  $BIN_DIR/geth \
       --config ${DATA_DIR}/config.toml \
       --datadir "${DATA_DIR}" \
@@ -125,8 +122,6 @@ else
       --blspassword ${DATA_DIR}/password.txt \
       --db.engine ${DB_ENGINE} \
       --gcmode ${GC_MODE} \
-      --miner.gasprice ${MINER_GAS_PRICE} \
-      --miner.gaslimit ${MINER_GAS_LIMIT} \
       --http --http.addr 0.0.0.0 --http.port ${HTTP_PORT} --http.api "${HTTP_API}" \
       --ws --ws.addr 0.0.0.0 --ws.port ${WS_PORT} --ws.api "${WS_API}" \
       --metrics --metrics.addr 0.0.0.0 --metrics.port ${METRICS_PORT} --metrics.expensive \
@@ -232,9 +227,9 @@ function register_stakehub_single(){
             --password ${DATA_DIR}/password.txt \
             --unlock ${VALIDATOR_ADDR} \
             --blspassword ${DATA_DIR}/password.txt \
-            --mine --miner.etherbase ${VALIDATOR_ADDR} --vote \
             --db.engine ${DB_ENGINE} \
             --gcmode ${GC_MODE} \
+            --mine --miner.etherbase ${VALIDATOR_ADDR} --vote \
             --miner.gasprice ${MINER_GAS_PRICE} \
             --miner.gaslimit ${MINER_GAS_LIMIT} \
             --http --http.addr 0.0.0.0 --http.port ${HTTP_PORT} --http.api "${HTTP_API}" \
