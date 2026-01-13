@@ -25,7 +25,7 @@ services:
     command: [ "bash", "-x", "/app/generate_genesis.sh" ]
   validator_node_one:
 #    image: calmw/chain_bohr:v0.0.3
-    image: calmw/chain_bohr:v0.0.4 # gas
+    image: calmw/chain_bohr:v0.0.5 # gas
     container_name: validator_node_one
     networks:
       chain_net:
