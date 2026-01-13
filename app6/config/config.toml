@@ -126,5 +126,5 @@ FilePath = "clog.log"
 TimeFormat = "01-02|15:04:05.000"
 MaxBackups = 1000
 MaxBytesSize = 10485760
-Level = "debug"
+Level = "info"
 FileRoot = ""
