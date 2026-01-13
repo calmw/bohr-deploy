@@ -1,0 +1,308 @@
+networks:
+  chain_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.250.0/24
+
+services:
+  validator_node_one:
+    image: calmw/chain_bohr:v0.0.3
+    container_name: validator_node_one
+    networks:
+      chain_net:
+        ipv4_address: 192.168.250.11
+    restart: always
+    environment:
+      # ---- 路径与基础参数 ----
+      BASE_DIR: "/data/app1"
+      DATA_DIR: "/data/app1/node"
+      BIN_DIR: "/data/chain/bin"
+      KEYS_DIR: "/data/app1/keys"
+      # ---- 节点相关类型 ----
+      DB_ENGINE: "pebble"
+      #      DB_ENGINE: leveldb
+      GC_MODE: "full"
+      STATE_SCHEME: "hash"
+      SYNC_MODE: "full"
+      PASSWORD: "db4847e6338423"
+      # ---- API 相关 ----
+      HTTP_PORT: "8545"
+      WS_PORT: "8546"
+      P2P_PORT: "30303"
+      METRICS_PORT: "6060"
+      PPROF_PORT: "7070"
+      HTTP_API: "eth,net,web3,debug,txpool,trace,parlia"
+      WS_API: "eth,net,web3,debug,txpool,trace,parlia"
+      # ---- 矿工参数 ----
+      MINER_GAS_PRICE: "1000000000"
+      MINER_GAS_LIMIT: "35000000"
+      VALIDATOR_INDEX: "001"
+    volumes:
+      - ./app1:/data/app1
+    ports:
+      - "8541:8545"   # HTTP RPC
+#      - "8541:8546"   # WS RPC
+      - "30301:30303" # P2P TCP
+      - "30301:30303/udp" # P2P UDP
+
+    command: [ "bash", "-c", "/data/app1/node_validator_first_start.sh" ]
+
+  validator_node_two:
+    image: calmw/chain_bohr:v0.0.4
+    container_name: validator_node_two
+    networks:
+      chain_net:
+        ipv4_address: 192.168.250.12
+    restart: always
+    environment:
+      # ---- 路径与基础参数 ----
+      BASE_DIR: "/data/app1"
+      DATA_DIR: "/data/app1/node"
+      BIN_DIR: "/data/chain/bin"
+      KEYS_DIR: "/data/app1/keys"
+      # ---- 节点相关类型 ----
+      DB_ENGINE: "pebble"
+      GC_MODE: "full"
+      STATE_SCHEME: "hash"
+      SYNC_MODE: "full"
+      PASSWORD: "db4847e6338423"
+      # ---- API 相关 ----
+      HTTP_PORT: "8545"
+      WS_PORT: "8546"
+      P2P_PORT: "30303"
+      METRICS_PORT: "6060"
+      PPROF_PORT: "7070"
+      HTTP_API: "eth,net,web3,debug,txpool,trace,parlia"
+      WS_API: "eth,net,web3,debug,txpool,trace,parlia"
+      # ---- 矿工参数 ----
+      MINER_GAS_PRICE: "1000000000"
+      MINER_GAS_LIMIT: "35000000"
+      VALIDATOR_INDEX: "002"
+      RPC_URL: "http://192.168.250.11:8545"
+    volumes:
+      - ./app2:/data/app1
+    ports:
+      - "8542:8545"   # HTTP RPC
+#      - "18542:8546"   # WS RPC
+      - "30302:30303" # P2P TCP
+      - "30302:30303/udp" # P2P UDP
+
+    command: [ "bash", "-c", "/data/app1/node_validator_start.sh" ]
+
+  validator_node_three:
+    image: boc
+    container_name: validator_node_three
+    networks:
+      chain_net:
+        ipv4_address: 192.168.250.13
+    restart: always
+    environment:
+      # ---- 路径与基础参数 ----
+      BASE_DIR: "/data/app1"
+      DATA_DIR: "/data/app1/node"
+      BIN_DIR: "/data/chain/bin"
+      KEYS_DIR: "/data/app1/keys"
+      # ---- 节点相关类型 ----
+      DB_ENGINE: "pebble"
+      GC_MODE: "archive"
+      STATE_SCHEME: "hash"
+      SYNC_MODE: "full"
+      RIALT_HASH: "0xa5ef25915d2fa306204c04a5beed2c94eedafbe67edaa39e1d994a84afbc050b"
+      # ---- API 相关 ----
+      HTTP_PORT: "8545"
+      WS_PORT: "8546"
+      P2P_PORT: "30303"
+      METRICS_PORT: "6060"
+      PPROF_PORT: "7070"
+      HTTP_API: "debug, web3, eth, txpool, mev, parlia, miner, net"
+      WS_API: "debug, web3, eth, txpool, mev, parlia, miner, net"
+      # ---- 矿工参数 ----
+      MINER_GAS_PRICE: "1000000000"
+      MINER_GAS_LIMIT: "35000000"
+      VALIDATOR_INDEX: "003"
+    volumes:
+      - ./app3:/data/app1
+    ports:
+      - "8543:8545"   # HTTP RPC
+#      - "28543:8546"   # WS RPC
+      - "30303:30303" # P2P TCP
+      - "30303:30303/udp" # P2P UDP
+
+    command: [ "bash", "-c", "/data/app1/node_archive_start.sh" ]
+
+  validator_node_four:
+    image: boc
+    container_name: validator_node_four
+    networks:
+      chain_net:
+        ipv4_address: 192.168.250.14
+    restart: always
+    environment:
+      # ---- 路径与基础参数 ----
+      BASE_DIR: "/data/app1"
+      DATA_DIR: "/data/app1/node"
+      BIN_DIR: "/data/chain/bin"
+      KEYS_DIR: "/data/app1/keys"
+      # ---- 节点相关类型 ----
+      DB_ENGINE: "pebble"
+      GC_MODE: "full"
+      STATE_SCHEME: "hash"
+      SYNC_MODE: "full"
+      PASSWORD: "db4847e6338423"
+      # ---- API 相关 ----
+      HTTP_PORT: "8545"
+      WS_PORT: "8546"
+      P2P_PORT: "30303"
+      METRICS_PORT: "6060"
+      PPROF_PORT: "7070"
+      HTTP_API: "eth,net,web3,debug,txpool,trace,parlia"
+      WS_API: "eth,net,web3,debug,txpool,trace,parlia"
+      # ---- 矿工参数 ----
+      MINER_GAS_PRICE: "1000000000"
+      MINER_GAS_LIMIT: "35000000"
+      RPC_URL: "http://172.20.0.10:8545"
+      VALIDATOR_INDEX: "004"
+    volumes:
+      - ./app4:/data/app1
+    ports:
+      - "8544:8545"   # HTTP RPC
+#      - "48544:8546"   # WS RPC
+      - "30304:30303" # P2P TCP
+      - "30304:30303/udp" # P2P UDP
+
+    command: [ "bash", "-c", "/data/app1/node_validator_first_start.sh" ]
+
+
+  validator_node_five:
+    image: boc
+    container_name: validator_node_five
+    networks:
+      chain_net:
+        ipv4_address: 192.168.250.15
+    restart: always
+    environment:
+      # ---- 路径与基础参数 ----
+      BASE_DIR: "/data/app1"
+      DATA_DIR: "/data/app1/node"
+      BIN_DIR: "/data/chain/bin"
+      KEYS_DIR: "/data/app1/keys"
+      # ---- 节点相关类型 ----
+      DB_ENGINE: "pebble"
+      GC_MODE: "full"
+      STATE_SCHEME: "hash"
+      SYNC_MODE: "full"
+      PASSWORD: "db4847e6338423"
+      # ---- API 相关 ----
+      HTTP_PORT: "8545"
+      WS_PORT: "8546"
+      P2P_PORT: "30303"
+      METRICS_PORT: "6060"
+      PPROF_PORT: "7070"
+      HTTP_API: "eth,net,web3,debug,txpool,trace,parlia"
+      WS_API: "eth,net,web3,debug,txpool,trace,parlia"
+      # ---- 矿工参数 ----
+      MINER_GAS_PRICE: "1000000000"
+      MINER_GAS_LIMIT: "35000000"
+      RPC_URL: "http://172.20.0.10:8545"
+      VALIDATOR_INDEX: "004"
+    volumes:
+      - ./app5:/data/app1
+    ports:
+      - "8545:8545"   # HTTP RPC
+#      - "48546:8546"   # WS RPC
+      - "30305:30303" # P2P TCP
+      - "30305:30303/udp" # P2P UDP
+
+    command: [ "bash", "-c", "/data/app1/node_validator_first_start.sh" ]
+
+
+  validator_node_six:
+    image: boc
+    container_name: validator_node_six
+    networks:
+      chain_net:
+        ipv4_address: 192.168.250.16
+    restart: always
+    environment:
+      # ---- 路径与基础参数 ----
+      BASE_DIR: "/data/app1"
+      DATA_DIR: "/data/app1/node"
+      BIN_DIR: "/data/chain/bin"
+      KEYS_DIR: "/data/app1/keys"
+      # ---- 节点相关类型 ----
+      DB_ENGINE: "pebble"
+      GC_MODE: "full"
+      STATE_SCHEME: "hash"
+      SYNC_MODE: "full"
+      PASSWORD: "db4847e6338423"
+      # ---- API 相关 ----
+      HTTP_PORT: "8545"
+      WS_PORT: "8546"
+      P2P_PORT: "30303"
+      METRICS_PORT: "6060"
+      PPROF_PORT: "7070"
+      HTTP_API: "eth,net,web3,debug,txpool,trace,parlia"
+      WS_API: "eth,net,web3,debug,txpool,trace,parlia"
+      # ---- 矿工参数 ----
+      MINER_GAS_PRICE: "1000000000"
+      MINER_GAS_LIMIT: "35000000"
+      RPC_URL: "http://172.20.0.10:8545"
+      VALIDATOR_INDEX: "004"
+    volumes:
+      - ./app6:/data/app1
+    ports:
+      - "8546:8545"   # HTTP RPC
+#      - "48546:8546"   # WS RPC
+      - "30306:30303" # P2P TCP
+      - "30306:30303/udp" # P2P UDP
+
+    command: [ "bash", "-c", "/data/app1/node_validator_first_start.sh" ]
+
+
+  validator_node_seven:
+    image: boc
+    container_name: validator_node_seven
+    networks:
+      chain_net:
+        ipv4_address: 192.168.250.17
+    restart: always
+    environment:
+      # ---- 路径与基础参数 ----
+      BASE_DIR: "/data/app1"
+      DATA_DIR: "/data/app1/node"
+      BIN_DIR: "/data/chain/bin"
+      KEYS_DIR: "/data/app1/keys"
+      # ---- 节点相关类型 ----
+      DB_ENGINE: "pebble"
+      GC_MODE: "full"
+      STATE_SCHEME: "hash"
+      SYNC_MODE: "full"
+      PASSWORD: "db4847e6338423"
+      # ---- API 相关 ----
+      HTTP_PORT: "8545"
+      WS_PORT: "8546"
+      P2P_PORT: "30303"
+      METRICS_PORT: "6060"
+      PPROF_PORT: "7070"
+      HTTP_API: "eth,net,web3,debug,txpool,trace,parlia"
+      WS_API: "eth,net,web3,debug,txpool,trace,parlia"
+      # ---- 矿工参数 ----
+      MINER_GAS_PRICE: "1000000000"
+      MINER_GAS_LIMIT: "35000000"
+      RPC_URL: "http://172.20.0.10:8545"
+      VALIDATOR_INDEX: "004"
+    volumes:
+      - ./app7:/data/app1
+    ports:
+      - "8547:8545"   # HTTP RPC
+#      - "48547:8546"   # WS RPC
+      - "30307:30303" # P2P TCP
+      - "30307:30303/udp" # P2P UDP
+
+    command: [ "bash", "-c", "/data/app1/node_validator_first_start.sh" ]
+
+
+
+
+

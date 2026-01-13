@@ -1,0 +1,13 @@
+INFO [01-13|09:19:54.778] Maximum peer count                       ETH=50 total=50
+INFO [01-13|09:19:54.778] Smartcard socket not found, disabling    err="stat /run/pcscd/pcscd.comm: no such file or directory"
+INFO [01-13|09:19:54.781] Use CLI state scheme                     CLI=hash
+INFO [01-13|09:19:54.781] Set global gas cap                       cap=50,000,000
+INFO [01-13|09:19:54.781] Initializing the KZG library             backend=gokzg
+INFO [01-13|09:19:54.796] Defaulting to pebble as the backing database
+INFO [01-13|09:19:54.796] Allocated cache and file handles         database=/data/app/node/geth/chaindata cache=16.00MiB handles=16 "memory table"=4.00MiB
+INFO [01-13|09:19:54.804] Opened ancient database                  database=/data/app/node/geth/chaindata/ancient/chain readonly=false frozen=0
+INFO [01-13|09:19:54.804] State scheme set by user                 scheme=hash
+INFO [01-13|09:19:54.804] Writing custom genesis block
+INFO [01-13|09:19:54.806] Persisted trie from memory database      nodes=28 size=3.99KiB time="123.458µs" gcnodes=0 gcsize=0.00B gctime=0s livenodes=0 livesize=0.00B
+INFO [01-13|09:19:54.809] genesis block hash                       hash=4ddf4a..cb30a0
+INFO [01-13|09:19:54.809] Successfully wrote genesis state         database=chaindata hash=0x4ddf4ad99d4c0601b613b5c14be9508a14701ac85824cac221c4b4df30cb30a0
