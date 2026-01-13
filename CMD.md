@@ -17,8 +17,8 @@ docker compose down
 
 $BIN_DIR/tf --rpc http://127.0.0.1:8545 \
 --prk f9b80c203f15ca0c1ede3107c7866223b7f5730d21bf4863189b2ec31064ae2f \
---to 0x6db9cf1788d292b349bf47d9c6578c1b0f881513 \
---amount 21000
+--to 0x23c23a10a223ba1071ad38441c58b9e65a541611 \
+--amount 41000
 
 
 ```
