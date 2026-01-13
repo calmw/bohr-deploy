@@ -39,7 +39,7 @@ services:
       MINER_GAS_LIMIT: "35000000"
       VALIDATOR_INDEX: "001"
     volumes:
-      - ./app1:/data/app1
+      - ./app1:/data/app
     ports:
       - "8541:8545"   # HTTP RPC
 #      - "8541:8546"   # WS RPC
@@ -81,7 +81,7 @@ services:
       VALIDATOR_INDEX: "002"
       RPC_URL: "http://192.168.250.11:8545"
     volumes:
-      - ./app2:/data/app1
+      - ./app2:/data/app
     ports:
       - "8542:8545"   # HTTP RPC
 #      - "18542:8546"   # WS RPC
@@ -122,7 +122,7 @@ services:
       MINER_GAS_LIMIT: "35000000"
       VALIDATOR_INDEX: "003"
     volumes:
-      - ./app3:/data/app1
+      - ./app3:/data/app
     ports:
       - "8543:8545"   # HTTP RPC
 #      - "28543:8546"   # WS RPC
@@ -164,7 +164,7 @@ services:
       RPC_URL: "http://172.20.0.10:8545"
       VALIDATOR_INDEX: "004"
     volumes:
-      - ./app4:/data/app1
+      - ./app4:/data/app
     ports:
       - "8544:8545"   # HTTP RPC
 #      - "48544:8546"   # WS RPC
@@ -207,7 +207,7 @@ services:
       RPC_URL: "http://172.20.0.10:8545"
       VALIDATOR_INDEX: "004"
     volumes:
-      - ./app5:/data/app1
+      - ./app5:/data/app
     ports:
       - "8545:8545"   # HTTP RPC
 #      - "48546:8546"   # WS RPC
@@ -250,7 +250,7 @@ services:
       RPC_URL: "http://172.20.0.10:8545"
       VALIDATOR_INDEX: "004"
     volumes:
-      - ./app6:/data/app1
+      - ./app6:/data/app
     ports:
       - "8546:8545"   # HTTP RPC
 #      - "48546:8546"   # WS RPC
@@ -293,7 +293,7 @@ services:
       RPC_URL: "http://172.20.0.10:8545"
       VALIDATOR_INDEX: "004"
     volumes:
-      - ./app7:/data/app1
+      - ./app7:/data/app
     ports:
       - "8547:8545"   # HTTP RPC
 #      - "48547:8546"   # WS RPC
