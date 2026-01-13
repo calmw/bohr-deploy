@@ -8,7 +8,7 @@ networks:
 services:
   generate_genesis:
 #    image: calmw/generate_genesis_bohr:v0.0.3
-    image: calmw/generate_genesis_bohr:v0.0.4 # gas
+    image: calmw/generate_genesis_bohr:v0.0.5 # gas
     container_name: generate_genesis
     networks:
       chain_net:
