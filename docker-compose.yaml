@@ -7,7 +7,7 @@ networks:
 
 services:
   validator_node_one:
-    image: calmw/chain_bohr:v0.0.3
+    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-validator-first:gas-b20e92-20260113212958
     container_name: validator_node_one
     networks:
       chain_net:
@@ -49,7 +49,7 @@ services:
     command: [ "bash", "-c", "/data/app1/node_validator_first_start.sh" ]
 
   validator_node_two:
-    image: calmw/chain_bohr:v0.0.4
+    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-validator-first:gas-b20e92-20260113212958
     container_name: validator_node_two
     networks:
       chain_net:
@@ -91,7 +91,7 @@ services:
     command: [ "bash", "-c", "/data/app1/node_validator_start.sh" ]
 
   validator_node_three:
-    image: boc
+    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-validator-first:gas-b20e92-20260113212958
     container_name: validator_node_three
     networks:
       chain_net:
@@ -132,7 +132,7 @@ services:
     command: [ "bash", "-c", "/data/app1/node_archive_start.sh" ]
 
   validator_node_four:
-    image: boc
+    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-validator-first:gas-b20e92-20260113212958
     container_name: validator_node_four
     networks:
       chain_net:
@@ -175,7 +175,7 @@ services:
 
 
   validator_node_five:
-    image: boc
+    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-validator-first:gas-b20e92-20260113212958
     container_name: validator_node_five
     networks:
       chain_net:
@@ -218,7 +218,7 @@ services:
 
 
   validator_node_six:
-    image: boc
+    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-validator-first:gas-b20e92-20260113212958
     container_name: validator_node_six
     networks:
       chain_net:
@@ -261,7 +261,7 @@ services:
 
 
   validator_node_seven:
-    image: boc
+    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-validator-first:gas-b20e92-20260113212958
     container_name: validator_node_seven
     networks:
       chain_net:
