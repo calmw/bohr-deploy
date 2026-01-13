@@ -14,30 +14,25 @@ services:
         ipv4_address: 192.168.250.11
     restart: always
     environment:
-      # ---- 路径与基础参数 ----
       BASE_DIR: "/data/app"
       DATA_DIR: "/data/app/node"
       BIN_DIR: "/data/chain/bin"
       KEYS_DIR: "/data/app/keys"
-      # ---- 节点相关类型 ----
       DB_ENGINE: "pebble"
-      #      DB_ENGINE: leveldb
       GC_MODE: "full"
       STATE_SCHEME: "hash"
       SYNC_MODE: "full"
       PASSWORD: "db4847e6338423"
-      # ---- API 相关 ----
       HTTP_PORT: "8545"
       WS_PORT: "8546"
       P2P_PORT: "30303"
       METRICS_PORT: "6060"
       PPROF_PORT: "7070"
-      HTTP_API: "eth,net,web3,debug,txpool,trace,parlia"
-      WS_API: "eth,net,web3,debug,txpool,trace,parlia"
-      # ---- 矿工参数 ----
+      HTTP_API: "eth,net,web3,debug,txpool,parlia"
+      WS_API: "eth,net,web3,debug,txpool,parlia"
       MINER_GAS_PRICE: "1000000000"
       MINER_GAS_LIMIT: "35000000"
-      VALIDATOR_INDEX: "001"
+      VALIDATOR_INDEX: "002"
     volumes:
       - ./app1:/data/app
     ports:
@@ -56,26 +51,22 @@ services:
         ipv4_address: 192.168.250.12
     restart: always
     environment:
-      # ---- 路径与基础参数 ----
       BASE_DIR: "/data/app"
       DATA_DIR: "/data/app/node"
       BIN_DIR: "/data/chain/bin"
       KEYS_DIR: "/data/app/keys"
-      # ---- 节点相关类型 ----
       DB_ENGINE: "pebble"
       GC_MODE: "full"
       STATE_SCHEME: "hash"
       SYNC_MODE: "full"
       PASSWORD: "db4847e6338423"
-      # ---- API 相关 ----
       HTTP_PORT: "8545"
       WS_PORT: "8546"
       P2P_PORT: "30303"
       METRICS_PORT: "6060"
       PPROF_PORT: "7070"
-      HTTP_API: "eth,net,web3,debug,txpool,trace,parlia"
-      WS_API: "eth,net,web3,debug,txpool,trace,parlia"
-      # ---- 矿工参数 ----
+      HTTP_API: "eth,net,web3,debug,txpool,parlia"
+      WS_API: "eth,net,web3,debug,txpool,parlia"
       MINER_GAS_PRICE: "1000000000"
       MINER_GAS_LIMIT: "35000000"
       VALIDATOR_INDEX: "002"
@@ -98,29 +89,26 @@ services:
         ipv4_address: 192.168.250.13
     restart: always
     environment:
-      # ---- 路径与基础参数 ----
       BASE_DIR: "/data/app"
       DATA_DIR: "/data/app/node"
       BIN_DIR: "/data/chain/bin"
       KEYS_DIR: "/data/app/keys"
-      # ---- 节点相关类型 ----
       DB_ENGINE: "pebble"
-      GC_MODE: "archive"
+      GC_MODE: "full"
       STATE_SCHEME: "hash"
       SYNC_MODE: "full"
-      RIALT_HASH: "0xa5ef25915d2fa306204c04a5beed2c94eedafbe67edaa39e1d994a84afbc050b"
-      # ---- API 相关 ----
+      PASSWORD: "db4847e6338423"
       HTTP_PORT: "8545"
       WS_PORT: "8546"
       P2P_PORT: "30303"
       METRICS_PORT: "6060"
       PPROF_PORT: "7070"
-      HTTP_API: "debug, web3, eth, txpool, mev, parlia, miner, net"
-      WS_API: "debug, web3, eth, txpool, mev, parlia, miner, net"
-      # ---- 矿工参数 ----
+      HTTP_API: "eth,net,web3,debug,txpool,parlia"
+      WS_API: "eth,net,web3,debug,txpool,parlia"
       MINER_GAS_PRICE: "1000000000"
       MINER_GAS_LIMIT: "35000000"
-      VALIDATOR_INDEX: "003"
+      VALIDATOR_INDEX: "002"
+      RPC_URL: "http://192.168.250.11:8545"
     volumes:
       - ./app3:/data/app
     ports:
@@ -139,30 +127,26 @@ services:
         ipv4_address: 192.168.250.14
     restart: always
     environment:
-      # ---- 路径与基础参数 ----
       BASE_DIR: "/data/app"
       DATA_DIR: "/data/app/node"
       BIN_DIR: "/data/chain/bin"
       KEYS_DIR: "/data/app/keys"
-      # ---- 节点相关类型 ----
       DB_ENGINE: "pebble"
       GC_MODE: "full"
       STATE_SCHEME: "hash"
       SYNC_MODE: "full"
       PASSWORD: "db4847e6338423"
-      # ---- API 相关 ----
       HTTP_PORT: "8545"
       WS_PORT: "8546"
       P2P_PORT: "30303"
       METRICS_PORT: "6060"
       PPROF_PORT: "7070"
-      HTTP_API: "eth,net,web3,debug,txpool,trace,parlia"
-      WS_API: "eth,net,web3,debug,txpool,trace,parlia"
-      # ---- 矿工参数 ----
+      HTTP_API: "eth,net,web3,debug,txpool,parlia"
+      WS_API: "eth,net,web3,debug,txpool,parlia"
       MINER_GAS_PRICE: "1000000000"
       MINER_GAS_LIMIT: "35000000"
-      RPC_URL: "http://172.20.0.10:8545"
-      VALIDATOR_INDEX: "004"
+      VALIDATOR_INDEX: "002"
+      RPC_URL: "http://192.168.250.11:8545"
     volumes:
       - ./app4:/data/app
     ports:
@@ -182,30 +166,26 @@ services:
         ipv4_address: 192.168.250.15
     restart: always
     environment:
-      # ---- 路径与基础参数 ----
       BASE_DIR: "/data/app"
       DATA_DIR: "/data/app/node"
       BIN_DIR: "/data/chain/bin"
       KEYS_DIR: "/data/app/keys"
-      # ---- 节点相关类型 ----
       DB_ENGINE: "pebble"
       GC_MODE: "full"
       STATE_SCHEME: "hash"
       SYNC_MODE: "full"
       PASSWORD: "db4847e6338423"
-      # ---- API 相关 ----
       HTTP_PORT: "8545"
       WS_PORT: "8546"
       P2P_PORT: "30303"
       METRICS_PORT: "6060"
       PPROF_PORT: "7070"
-      HTTP_API: "eth,net,web3,debug,txpool,trace,parlia"
-      WS_API: "eth,net,web3,debug,txpool,trace,parlia"
-      # ---- 矿工参数 ----
+      HTTP_API: "eth,net,web3,debug,txpool,parlia"
+      WS_API: "eth,net,web3,debug,txpool,parlia"
       MINER_GAS_PRICE: "1000000000"
       MINER_GAS_LIMIT: "35000000"
-      RPC_URL: "http://172.20.0.10:8545"
-      VALIDATOR_INDEX: "004"
+      VALIDATOR_INDEX: "002"
+      RPC_URL: "http://192.168.250.11:8545"
     volumes:
       - ./app5:/data/app
     ports:
@@ -225,30 +205,26 @@ services:
         ipv4_address: 192.168.250.16
     restart: always
     environment:
-      # ---- 路径与基础参数 ----
       BASE_DIR: "/data/app"
       DATA_DIR: "/data/app/node"
       BIN_DIR: "/data/chain/bin"
       KEYS_DIR: "/data/app/keys"
-      # ---- 节点相关类型 ----
       DB_ENGINE: "pebble"
       GC_MODE: "full"
       STATE_SCHEME: "hash"
       SYNC_MODE: "full"
       PASSWORD: "db4847e6338423"
-      # ---- API 相关 ----
       HTTP_PORT: "8545"
       WS_PORT: "8546"
       P2P_PORT: "30303"
       METRICS_PORT: "6060"
       PPROF_PORT: "7070"
-      HTTP_API: "eth,net,web3,debug,txpool,trace,parlia"
-      WS_API: "eth,net,web3,debug,txpool,trace,parlia"
-      # ---- 矿工参数 ----
+      HTTP_API: "eth,net,web3,debug,txpool,parlia"
+      WS_API: "eth,net,web3,debug,txpool,parlia"
       MINER_GAS_PRICE: "1000000000"
       MINER_GAS_LIMIT: "35000000"
-      RPC_URL: "http://172.20.0.10:8545"
-      VALIDATOR_INDEX: "004"
+      VALIDATOR_INDEX: "002"
+      RPC_URL: "http://192.168.250.11:8545"
     volumes:
       - ./app6:/data/app
     ports:
@@ -268,30 +244,26 @@ services:
         ipv4_address: 192.168.250.17
     restart: always
     environment:
-      # ---- 路径与基础参数 ----
       BASE_DIR: "/data/app"
       DATA_DIR: "/data/app/node"
       BIN_DIR: "/data/chain/bin"
       KEYS_DIR: "/data/app/keys"
-      # ---- 节点相关类型 ----
       DB_ENGINE: "pebble"
       GC_MODE: "full"
       STATE_SCHEME: "hash"
       SYNC_MODE: "full"
       PASSWORD: "db4847e6338423"
-      # ---- API 相关 ----
       HTTP_PORT: "8545"
       WS_PORT: "8546"
       P2P_PORT: "30303"
       METRICS_PORT: "6060"
       PPROF_PORT: "7070"
-      HTTP_API: "eth,net,web3,debug,txpool,trace,parlia"
-      WS_API: "eth,net,web3,debug,txpool,trace,parlia"
-      # ---- 矿工参数 ----
+      HTTP_API: "eth,net,web3,debug,txpool,parlia"
+      WS_API: "eth,net,web3,debug,txpool,parlia"
       MINER_GAS_PRICE: "1000000000"
       MINER_GAS_LIMIT: "35000000"
-      RPC_URL: "http://172.20.0.10:8545"
-      VALIDATOR_INDEX: "004"
+      VALIDATOR_INDEX: "002"
+      RPC_URL: "http://192.168.250.11:8545"
     volumes:
       - ./app7:/data/app
     ports:
