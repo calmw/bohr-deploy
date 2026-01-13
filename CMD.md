@@ -15,6 +15,11 @@ docker compose down
 
 
 
+docker compose up -d validator_node_one 
+docker compose logs -f validator_node_one
+docker exec -it validator_node_one /bin/bash
+
+
 
 
 ```
