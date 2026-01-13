@@ -58,9 +58,10 @@ services:
       - "8541:8545"
       - "30301:30303"
       - "30301:30303/udp"
-    command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]
+    command: [ "bash", "-x", "/data/app/node_validator_start.sh" ]
   validator_node_two:
-    image: calmw/chain_bohr:v0.0.3
+    #    image: calmw/chain_bohr:v0.0.3
+    image: calmw/chain_bohr:v0.0.4 # gas
     container_name: validator_node_two
     networks:
       chain_net:
@@ -94,7 +95,7 @@ services:
       - "8542:8545"
       - "30302:30303"
       - "30302:30303/udp"
-    command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]
+    command: [ "bash", "-x", "/data/app/node_validator_start.sh" ]
   validator_node_three:
     image: calmw/chain_bohr:v0.0.3
     container_name: validator_node_three

@@ -87,7 +87,9 @@ if [ "$VALIDATOR_INDEX" == "001" ]; then
       --blspassword ${DATA_DIR}/password.txt \
       --db.engine ${DB_ENGINE} \
       --gcmode ${GC_MODE} \
-      --mine --miner.etherbase ${VALIDATOR_ADDR} --vote \
+      --mine \
+      --vote \
+      --miner.etherbase ${VALIDATOR_ADDR} \
       --miner.gasprice ${MINER_GAS_PRICE} \
       --miner.gaslimit ${MINER_GAS_LIMIT} \
       --http --http.addr 0.0.0.0 --http.port ${HTTP_PORT} --http.api "${HTTP_API}" \
