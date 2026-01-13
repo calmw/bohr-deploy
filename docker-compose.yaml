@@ -15,10 +15,10 @@ services:
     restart: always
     environment:
       # ---- 路径与基础参数 ----
-      BASE_DIR: "/data/app1"
-      DATA_DIR: "/data/app1/node"
+      BASE_DIR: "/data/app"
+      DATA_DIR: "/data/app/node"
       BIN_DIR: "/data/chain/bin"
-      KEYS_DIR: "/data/app1/keys"
+      KEYS_DIR: "/data/app/keys"
       # ---- 节点相关类型 ----
       DB_ENGINE: "pebble"
       #      DB_ENGINE: leveldb
@@ -46,7 +46,7 @@ services:
       - "30301:30303" # P2P TCP
       - "30301:30303/udp" # P2P UDP
 
-    command: [ "bash", "-c", "/data/app1/node_validator_first_start.sh" ]
+    command: [ "bash", "-c", "/data/app/node_validator_first_start.sh" ]
 
   validator_node_two:
     image: calmw/chain_bohr:v0.0.5
@@ -57,10 +57,10 @@ services:
     restart: always
     environment:
       # ---- 路径与基础参数 ----
-      BASE_DIR: "/data/app1"
-      DATA_DIR: "/data/app1/node"
+      BASE_DIR: "/data/app"
+      DATA_DIR: "/data/app/node"
       BIN_DIR: "/data/chain/bin"
-      KEYS_DIR: "/data/app1/keys"
+      KEYS_DIR: "/data/app/keys"
       # ---- 节点相关类型 ----
       DB_ENGINE: "pebble"
       GC_MODE: "full"
@@ -88,7 +88,7 @@ services:
       - "30302:30303" # P2P TCP
       - "30302:30303/udp" # P2P UDP
 
-    command: [ "bash", "-c", "/data/app1/node_validator_start.sh" ]
+    command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]
 
   validator_node_three:
     image: calmw/chain_bohr:v0.0.5
@@ -99,10 +99,10 @@ services:
     restart: always
     environment:
       # ---- 路径与基础参数 ----
-      BASE_DIR: "/data/app1"
-      DATA_DIR: "/data/app1/node"
+      BASE_DIR: "/data/app"
+      DATA_DIR: "/data/app/node"
       BIN_DIR: "/data/chain/bin"
-      KEYS_DIR: "/data/app1/keys"
+      KEYS_DIR: "/data/app/keys"
       # ---- 节点相关类型 ----
       DB_ENGINE: "pebble"
       GC_MODE: "archive"
@@ -129,7 +129,7 @@ services:
       - "30303:30303" # P2P TCP
       - "30303:30303/udp" # P2P UDP
 
-    command: [ "bash", "-c", "/data/app1/node_archive_start.sh" ]
+    command: [ "bash", "-c", "/data/app/node_archive_start.sh" ]
 
   validator_node_four:
     image: calmw/chain_bohr:v0.0.5
@@ -140,10 +140,10 @@ services:
     restart: always
     environment:
       # ---- 路径与基础参数 ----
-      BASE_DIR: "/data/app1"
-      DATA_DIR: "/data/app1/node"
+      BASE_DIR: "/data/app"
+      DATA_DIR: "/data/app/node"
       BIN_DIR: "/data/chain/bin"
-      KEYS_DIR: "/data/app1/keys"
+      KEYS_DIR: "/data/app/keys"
       # ---- 节点相关类型 ----
       DB_ENGINE: "pebble"
       GC_MODE: "full"
@@ -171,7 +171,7 @@ services:
       - "30304:30303" # P2P TCP
       - "30304:30303/udp" # P2P UDP
 
-    command: [ "bash", "-c", "/data/app1/node_validator_first_start.sh" ]
+    command: [ "bash", "-c", "/data/app/node_validator_first_start.sh" ]
 
 
   validator_node_five:
@@ -183,10 +183,10 @@ services:
     restart: always
     environment:
       # ---- 路径与基础参数 ----
-      BASE_DIR: "/data/app1"
-      DATA_DIR: "/data/app1/node"
+      BASE_DIR: "/data/app"
+      DATA_DIR: "/data/app/node"
       BIN_DIR: "/data/chain/bin"
-      KEYS_DIR: "/data/app1/keys"
+      KEYS_DIR: "/data/app/keys"
       # ---- 节点相关类型 ----
       DB_ENGINE: "pebble"
       GC_MODE: "full"
@@ -214,7 +214,7 @@ services:
       - "30305:30303" # P2P TCP
       - "30305:30303/udp" # P2P UDP
 
-    command: [ "bash", "-c", "/data/app1/node_validator_first_start.sh" ]
+    command: [ "bash", "-c", "/data/app/node_validator_first_start.sh" ]
 
 
   validator_node_six:
@@ -226,10 +226,10 @@ services:
     restart: always
     environment:
       # ---- 路径与基础参数 ----
-      BASE_DIR: "/data/app1"
-      DATA_DIR: "/data/app1/node"
+      BASE_DIR: "/data/app"
+      DATA_DIR: "/data/app/node"
       BIN_DIR: "/data/chain/bin"
-      KEYS_DIR: "/data/app1/keys"
+      KEYS_DIR: "/data/app/keys"
       # ---- 节点相关类型 ----
       DB_ENGINE: "pebble"
       GC_MODE: "full"
@@ -257,7 +257,7 @@ services:
       - "30306:30303" # P2P TCP
       - "30306:30303/udp" # P2P UDP
 
-    command: [ "bash", "-c", "/data/app1/node_validator_first_start.sh" ]
+    command: [ "bash", "-c", "/data/app/node_validator_first_start.sh" ]
 
 
   validator_node_seven:
@@ -269,10 +269,10 @@ services:
     restart: always
     environment:
       # ---- 路径与基础参数 ----
-      BASE_DIR: "/data/app1"
-      DATA_DIR: "/data/app1/node"
+      BASE_DIR: "/data/app"
+      DATA_DIR: "/data/app/node"
       BIN_DIR: "/data/chain/bin"
-      KEYS_DIR: "/data/app1/keys"
+      KEYS_DIR: "/data/app/keys"
       # ---- 节点相关类型 ----
       DB_ENGINE: "pebble"
       GC_MODE: "full"
@@ -300,7 +300,7 @@ services:
       - "30307:30303" # P2P TCP
       - "30307:30303/udp" # P2P UDP
 
-    command: [ "bash", "-c", "/data/app1/node_validator_first_start.sh" ]
+    command: [ "bash", "-c", "/data/app/node_validator_first_start.sh" ]
 
 
 
