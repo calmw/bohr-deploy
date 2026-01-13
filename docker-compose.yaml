@@ -107,7 +107,7 @@ services:
       WS_API: "eth,net,web3,debug,txpool,parlia"
       MINER_GAS_PRICE: "1000000000"
       MINER_GAS_LIMIT: "35000000"
-      VALIDATOR_INDEX: "002"
+      VALIDATOR_INDEX: "003"
       RPC_URL: "http://192.168.250.11:8545"
     volumes:
       - ./app3:/data/app
@@ -145,7 +145,7 @@ services:
       WS_API: "eth,net,web3,debug,txpool,parlia"
       MINER_GAS_PRICE: "1000000000"
       MINER_GAS_LIMIT: "35000000"
-      VALIDATOR_INDEX: "002"
+      VALIDATOR_INDEX: "004"
       RPC_URL: "http://192.168.250.11:8545"
     volumes:
       - ./app4:/data/app
@@ -184,7 +184,7 @@ services:
       WS_API: "eth,net,web3,debug,txpool,parlia"
       MINER_GAS_PRICE: "1000000000"
       MINER_GAS_LIMIT: "35000000"
-      VALIDATOR_INDEX: "002"
+      VALIDATOR_INDEX: "005"
       RPC_URL: "http://192.168.250.11:8545"
     volumes:
       - ./app5:/data/app
@@ -223,7 +223,7 @@ services:
       WS_API: "eth,net,web3,debug,txpool,parlia"
       MINER_GAS_PRICE: "1000000000"
       MINER_GAS_LIMIT: "35000000"
-      VALIDATOR_INDEX: "002"
+      VALIDATOR_INDEX: "006"
       RPC_URL: "http://192.168.250.11:8545"
     volumes:
       - ./app6:/data/app
@@ -262,7 +262,7 @@ services:
       WS_API: "eth,net,web3,debug,txpool,parlia"
       MINER_GAS_PRICE: "1000000000"
       MINER_GAS_LIMIT: "35000000"
-      VALIDATOR_INDEX: "002"
+      VALIDATOR_INDEX: "007"
       RPC_URL: "http://192.168.250.11:8545"
     volumes:
       - ./app7:/data/app
