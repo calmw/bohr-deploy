@@ -6,6 +6,24 @@ networks:
         - subnet: 192.168.250.0/24
 
 services:
+  generate_genesis:
+    #    image: calmw/generate_genesis_bohr:v0.0.3
+    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/generate-genesis:gas-6789fb-20260114113053 # gas
+    container_name: generate_genesis
+    networks:
+      chain_net:
+        ipv4_address: 172.22.0.10
+    environment:
+      BASE_DIR: "/app"
+      DATA_DIR: "/data/app"
+      PASSWORD: "db4847e6338423"
+      CHAIN_ID: "968"
+      INIT_HOLDER: "0xfbfF2FdC957a1bb762c8FC7B81C04D73C4F81007"
+      INIT_HOLDERS: '[{"0xfbfF2FdC957a1bb762c8FC7B81C04D73C4F81007":"0x7c13bc4b2c133c56000000"}]'
+    volumes:
+      - ./app:/data/app
+    command: [ "bash", "-x", "/app/generate_genesis.sh" ]
+
   validator_node_one:
     image: calmw/chain_bohr:v0.0.5
     container_name: validator_node_one
