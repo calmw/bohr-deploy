@@ -8,7 +8,7 @@ networks:
 services:
   generate_genesis:
     #    image: calmw/generate_genesis_bohr:v0.0.3
-    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/generate-genesis:gas-6789fb-20260114113053 # gas
+    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/generate-genesis:gas-1926fa-20260114114354 # gas
     container_name: generate_genesis
     networks:
       chain_net:
