@@ -50,7 +50,7 @@ services:
       WS_API: "eth,net,web3,debug,txpool,parlia"
       MINER_GAS_PRICE: "1000000000"
       MINER_GAS_LIMIT: "35000000"
-      VALIDATOR_INDEX: "002"
+      VALIDATOR_INDEX: "001"
     volumes:
       - ./app1:/data/app
     ports:
