@@ -145,7 +145,7 @@ else
 
 
     # Once geth is running, register the validator
-    register_stakehub_single
+#    register_stakehub_single
 
     # Mark as registered
     echo "registered:true" > "${REGISTER_FLAG}"
