@@ -57,9 +57,11 @@ cp $BASE_DIR/config/genesis.json $DATA_DIR/
 function register_stakehub_single(){
     echo "==> Waiting for chain to be ready..."
 
-    sleep 45  # 等待链启动 RPC ready
+   DESC="Val${VALIDATOR_INDEX}"
 
-    DESC="validator"
+   echo "==> Waiting for validator ${VALIDATOR_ADDR} to receive funds..."
+   echo "    RPC URL: http://127.0.0.1:8545"
+   echo "    Description: $DESC"
     # 检测是否已注册
     echo "==> Validator not registered. Registering and staking..."
     echo $RPC_URL
