@@ -12,7 +12,7 @@ services:
     container_name: generate_genesis
     networks:
       chain_net:
-        ipv4_address: 172.22.0.10
+        ipv4_address: 192.168.250.10
     environment:
       BASE_DIR: "/app"
       DATA_DIR: "/data/app"
