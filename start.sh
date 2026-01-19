@@ -93,8 +93,13 @@ echo "✅ BootstrapNodes updated with 7 enode for all apps"
 
 
 docker compose restart  validator_node_two
+sleep 5
 docker compose restart  validator_node_three
+sleep 5
 docker compose restart  validator_node_four
+sleep 5
 docker compose restart  validator_node_five
+sleep 5
 docker compose restart  validator_node_six
+sleep 5
 docker compose restart  validator_node_seven
