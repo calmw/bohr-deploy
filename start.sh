@@ -1,5 +1,6 @@
 docker compose up -d  generate_genesis
-sleep 30
+echo "Sleep 300s"
+sleep 300
 
 set -e
 
