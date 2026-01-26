@@ -25,7 +25,7 @@ services:
     command: [ "bash", "-x", "/app/generate_genesis.sh" ]
 
   validator_node_one:
-    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-validator:gas-d37a3a-20260119145614
+    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-rpc:gas-d37a3a-20260126145033
     container_name: validator_node_one
     networks:
       chain_net:
@@ -62,7 +62,7 @@ services:
     command: [ "bash", "-c", "/data/app/node_validator_first_start.sh" ]
 
   validator_node_two:
-    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-validator:gas-d37a3a-20260119145614
+    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-rpc:gas-d37a3a-20260126145033
     container_name: validator_node_two
     networks:
       chain_net:
@@ -100,7 +100,7 @@ services:
     command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]
 
   validator_node_three:
-    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-validator:gas-d37a3a-20260119145614
+    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-rpc:gas-d37a3a-20260126145033
     container_name: validator_node_three
     networks:
       chain_net:
@@ -138,7 +138,7 @@ services:
     command: [ "bash", "-c", "/data/app/node_validator_start.sh" ]
 
   validator_node_four:
-    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-validator:gas-d37a3a-20260119145614
+    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-rpc:gas-d37a3a-20260126145033
     container_name: validator_node_four
     networks:
       chain_net:
@@ -177,7 +177,7 @@ services:
 
 
   validator_node_five:
-    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-validator:gas-d37a3a-20260119145614
+    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-rpc:gas-d37a3a-20260126145033
     container_name: validator_node_five
     networks:
       chain_net:
@@ -216,7 +216,7 @@ services:
 
 
   validator_node_six:
-    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-validator:gas-d37a3a-20260119145614
+    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-rpc:gas-d37a3a-20260126145033
     container_name: validator_node_six
     networks:
       chain_net:
@@ -255,7 +255,7 @@ services:
 
 
   validator_node_seven:
-    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-validator:gas-d37a3a-20260119145614
+    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-rpc:gas-d37a3a-20260126145033
     container_name: validator_node_seven
     networks:
       chain_net:
