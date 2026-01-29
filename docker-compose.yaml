@@ -1,23 +1,17 @@
 networks:
   chain_net:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 192.168.250.0/24
 
 services:
   generate_genesis:
-    #    image: calmw/generate_genesis_bohr:v0.0.3
     image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/generate-genesis:gas-975ff0-20260126144704
     container_name: generate_genesis
     networks:
       chain_net:
-        ipv4_address: 192.168.250.10
     environment:
       BASE_DIR: "/app"
       DATA_DIR: "/data/app"
       PASSWORD: "db4847e6338423"
-      CHAIN_ID: "968"
+      CHAIN_ID: "77"
       INIT_HOLDER: "0xfbfF2FdC957a1bb762c8FC7B81C04D73C4F81007"
       INIT_HOLDERS: '[{"0xfbfF2FdC957a1bb762c8FC7B81C04D73C4F81007":"0x7c13bc4b2c133c56000000"}]'
     volumes:
@@ -29,7 +23,6 @@ services:
     container_name: validator_node_one
     networks:
       chain_net:
-        ipv4_address: 192.168.250.11
     restart: always
     environment:
       BASE_DIR: "/data/app"
@@ -55,7 +48,7 @@ services:
       - ./app1:/data/app
     ports:
       - "8541:8545"   # HTTP RPC
-#      - "8541:8546"   # WS RPC
+      #      - "8541:8546"   # WS RPC
       - "30301:30303" # P2P TCP
       - "30301:30303/udp" # P2P UDP
 
@@ -66,7 +59,6 @@ services:
     container_name: validator_node_two
     networks:
       chain_net:
-        ipv4_address: 192.168.250.12
     restart: always
     environment:
       BASE_DIR: "/data/app"
@@ -93,7 +85,7 @@ services:
       - ./app2:/data/app
     ports:
       - "8542:8545"   # HTTP RPC
-#      - "18542:8546"   # WS RPC
+      #      - "18542:8546"   # WS RPC
       - "30302:30303" # P2P TCP
       - "30302:30303/udp" # P2P UDP
 
@@ -104,7 +96,6 @@ services:
     container_name: validator_node_three
     networks:
       chain_net:
-        ipv4_address: 192.168.250.13
     restart: always
     environment:
       BASE_DIR: "/data/app"
@@ -131,7 +122,7 @@ services:
       - ./app3:/data/app
     ports:
       - "8543:8545"   # HTTP RPC
-#      - "28543:8546"   # WS RPC
+      #      - "28543:8546"   # WS RPC
       - "30303:30303" # P2P TCP
       - "30303:30303/udp" # P2P UDP
 
@@ -142,7 +133,6 @@ services:
     container_name: validator_node_four
     networks:
       chain_net:
-        ipv4_address: 192.168.250.14
     restart: always
     environment:
       BASE_DIR: "/data/app"
@@ -169,7 +159,7 @@ services:
       - ./app4:/data/app
     ports:
       - "8544:8545"   # HTTP RPC
-#      - "48544:8546"   # WS RPC
+      #      - "48544:8546"   # WS RPC
       - "30304:30303" # P2P TCP
       - "30304:30303/udp" # P2P UDP
 
@@ -181,7 +171,6 @@ services:
     container_name: validator_node_five
     networks:
       chain_net:
-        ipv4_address: 192.168.250.15
     restart: always
     environment:
       BASE_DIR: "/data/app"
@@ -208,7 +197,7 @@ services:
       - ./app5:/data/app
     ports:
       - "8545:8545"   # HTTP RPC
-#      - "48546:8546"   # WS RPC
+      - "48546:8546"   # WS RPC
       - "30305:30303" # P2P TCP
       - "30305:30303/udp" # P2P UDP
 
@@ -220,7 +209,6 @@ services:
     container_name: validator_node_six
     networks:
       chain_net:
-        ipv4_address: 192.168.250.16
     restart: always
     environment:
       BASE_DIR: "/data/app"
@@ -247,7 +235,7 @@ services:
       - ./app6:/data/app
     ports:
       - "8546:8545"   # HTTP RPC
-#      - "48546:8546"   # WS RPC
+      - "48546:8546"   # WS RPC
       - "30306:30303" # P2P TCP
       - "30306:30303/udp" # P2P UDP
 
@@ -259,7 +247,6 @@ services:
     container_name: validator_node_seven
     networks:
       chain_net:
-        ipv4_address: 192.168.250.17
     restart: always
     environment:
       BASE_DIR: "/data/app"
@@ -286,7 +273,7 @@ services:
       - ./app7:/data/app
     ports:
       - "8547:8545"   # HTTP RPC
-#      - "48547:8546"   # WS RPC
+      - "48547:8546"   # WS RPC
       - "30307:30303" # P2P TCP
       - "30307:30303/udp" # P2P UDP
 
