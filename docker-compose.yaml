@@ -43,7 +43,7 @@ services:
       WS_API: "eth,net,web3,debug,txpool,parlia"
       MINER_GAS_PRICE: "1000000000000"
       MINER_GAS_LIMIT: "35000000"
-      VALIDATOR_INDEX: "005"
+      VALIDATOR_INDEX: "006"
       RPC_URL: "http://127.0.0.1:8545"
     volumes:
       - ./app:/data/app
