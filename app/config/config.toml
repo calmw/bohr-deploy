@@ -35,7 +35,7 @@ BlobExtraReserve = 0
 [Eth.Miner]
 GasFloor = 0
 GasCeil = 35000000
-GasPrice = 1000000000
+GasPrice = 1000000000000
 Recommit = 10000000000
 VoteEnable = false
 DisableVoteAttestation = false
