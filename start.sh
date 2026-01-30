@@ -9,6 +9,9 @@ echo "===================================="
 echo
 read -p "请输入节点序号（如 001 / 002 / 003）： " VALIDATOR_INDEX
 
+echo "登陆docker"
+aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com
+
 # 校验：必须是 3 位数字
 if [[ ! "$VALIDATOR_INDEX" =~ ^[0-9]{3}$ ]]; then
   echo "❌ 错误：节点序号必须是 3 位数字，例如 001"
