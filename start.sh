@@ -36,7 +36,7 @@ echo
 echo "🚀 启动 validator 节点..."
 echo "------------------------------------"
 
-docker compose up -d validator_node
+docker-compose up -d validator_node
 
 echo "sleep 10s"
 sleep 10
