@@ -1,140 +1,137 @@
-docker compose up -d  generate_genesis
-echo "Sleep 300s"
-sleep 200
-
-set -e
-
-IPS=(
-  13.115.178.211
-  13.115.178.211
-  13.115.178.211
-  13.115.178.211
-  13.115.178.211
-  13.115.178.211
-  13.115.178.211
-)
-
-cp -rf app/keys app1
-cp -rf app/config app1
-cp -rf app/config app2
-cp -rf app/config app3
-cp -rf app/config app4
-cp -rf app/config app5
-cp -rf app/config app6
-cp -rf app/config app7
+#!/usr/bin/env bash
 
 
-docker compose up -d  validator_node_one
-docker compose up -d  validator_node_two
-docker compose up -d  validator_node_three
-docker compose up -d  validator_node_four
-docker compose up -d  validator_node_five
-docker compose up -d  validator_node_six
-docker compose up -d  validator_node_seven
+COMPOSE_FILE="docker-compose.yaml"
 
+echo "===================================="
+echo " BOT 主网 Validator 启动脚本"
+echo "===================================="
+echo
+read -p "请输入节点序号（如 001 / 002 / 003）： " VALIDATOR_INDEX
+
+# 校验：必须是 3 位数字
+if [[ ! "$VALIDATOR_INDEX" =~ ^[0-9]{3}$ ]]; then
+  echo "❌ 错误：节点序号必须是 3 位数字，例如 001"
+  exit 1
+fi
+
+if [ ! -f "$COMPOSE_FILE" ]; then
+  echo "❌ 未找到 $COMPOSE_FILE"
+  exit 1
+fi
+
+echo
+echo "👉 设置 VALIDATOR_INDEX = $VALIDATOR_INDEX"
+
+# 替换 docker-compose.yaml 中的 VALIDATOR_INDEX
+sed -i.bak -E '/environment:/,/^[^[:space:]]/ s/(VALIDATOR_INDEX:\s*").*(")/\1'"$VALIDATOR_INDEX"'\2/' "$COMPOSE_FILE"
+
+if [ $? -ne 0 ]; then
+  echo "❌ 修改 docker-compose.yaml 失败"
+  exit 1
+fi
+
+echo "✅ docker-compose.yaml 已更新（备份：docker-compose.yaml.bak）"
+echo
+echo "🚀 启动 validator 节点..."
+echo "------------------------------------"
+
+docker compose up -d validator_node
+
+echo "sleep 10s"
 sleep 10
 
-docker stop  validator_node_two
-docker stop  validator_node_three
-docker stop  validator_node_four
-docker stop  validator_node_five
-docker stop  validator_node_six
-docker stop  validator_node_seven
+get_public_ip() {
+  for cmd in \
+    "curl -s https://api.ipify.org" \
+    "curl -s ifconfig.me" \
+    "curl -s https://checkip.amazonaws.com" \
+    "dig +short myip.opendns.com @resolver1.opendns.com"
+  do
+    ip=$(eval $cmd 2>/dev/null)
+    if [[ "$ip" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+      echo "$ip"
+      return 0
+    fi
+  done
 
-sleep 10
+  echo "❌ 无法获取外网 IP" >&2
+  return 1
+}
 
-
-BOOTSTRAP_NODES=()
-
-for i in {1..7}; do
-  APP="app${i}"
-  ENODE_FILE="${APP}/keys/enode.txt"
-  IP="${IPS[$((i-1))]}"
-  PORT=$((30300 + i))
-
-  if [[ ! -f "$ENODE_FILE" ]]; then
-    echo "❌ missing enode file: ${ENODE_FILE}"
-    exit 1
-  fi
-
-  ENODE_ID=$(cut -d'@' -f1 "$ENODE_FILE")
-  BOOTSTRAP_NODES+=("    \"${ENODE_ID}@${IP}:${PORT}\"")
-done
-
-for i in {1..7}; do
-  APP="app${i}"
-  CONFIG_FILE="${APP}/config/config.toml"
-
-  if [[ ! -f "$CONFIG_FILE" ]]; then
-    echo "❌ missing config file: ${CONFIG_FILE}"
-    exit 1
-  fi
-
-  echo "🔧 Updating ${CONFIG_FILE}"
-
-  awk -v nodes="$(printf "%s,\n" "${BOOTSTRAP_NODES[@]}")" '
-    BEGIN {in_bs=0}
-    /^\s*BootstrapNodes\s*=\s*\[/ {
-      print "BootstrapNodes = ["
-      printf "%s", nodes
-      print "]"
-      in_bs=1
-      next
-    }
-    in_bs {
-      if ($0 ~ /\]/) in_bs=0
-      next
-    }
-    {print}
-  ' "$CONFIG_FILE" > "${CONFIG_FILE}.tmp"
-
-  mv "${CONFIG_FILE}.tmp" "$CONFIG_FILE"
-done
-
-echo "✅ BootstrapNodes updated with 7 enode for all apps"
+echo "=== 提取 enode 地址 ==="
+PUBLIC_IP=$(get_public_ip)
+echo "公网 IP: $PUBLIC_IP"
 
 
-docker compose restart  validator_node_two
-sleep 5
-docker compose restart  validator_node_three
-sleep 5
-docker compose restart  validator_node_four
-sleep 5
-docker compose restart  validator_node_five
-sleep 5
-docker compose restart  validator_node_six
-sleep 5
-docker compose restart  validator_node_seven
+APP="app"
+PORT=30303
+ENODE_FILE="${APP}/keys/enode.txt"
+if [[ ! -f "$ENODE_FILE" ]]; then
+  echo "❌ missing enode file: ${ENODE_FILE}"
+  exit 1
+fi
+
+ENODE_ID=$(cut -d'@' -f1 "$ENODE_FILE")
+BOOTSTRAP_NODE=("    \"${ENODE_ID}@${PUBLIC_IP}:${PORT}\"")
+echo "⚠️ 请手动将以下 enode 配置到 config 中："
+echo "${BOOTSTRAP_NODE}"
+echo "=== 提取 enode 地址完成 ==="
 
 
 
 # 设置输出格式
 FORMAT="${1:--full}"
-
 echo "=== 提取验证者地址 ==="
-
-for APP_NUM in {2..7}; do
-    APP_DIR="app${APP_NUM}"
-    KEYSTORE_DIR="./${APP_DIR}/keys/validator/keystore"
-
-    # 查找 keystore 文件
-    UTC_FILE=$(find "$KEYSTORE_DIR" -name "UTC--*" -type f 2>/dev/null | head -n 1)
-
-    if [ -z "$UTC_FILE" ]; then
-        # 输出错误信息到标准错误，不干扰地址输出
-        echo "警告: 未找到 $APP_DIR 的 keystore 文件" >&2
-        continue
-    fi
-
-    # 提取地址 (最后一个'--'之后的部分)
-    ADDRESS=$(basename "$UTC_FILE" | awk -F'--' '{print $NF}')
-
-    # 根据格式输出
-    if [ "$FORMAT" = "-raw" ]; then
-        echo "$ADDRESS"          # 纯十六进制，不带0x
-    else
-        echo "0x${ADDRESS}"      # 带0x前缀 (默认)
-    fi
-done
-
+APP_DIR="app"
+KEYSTORE_DIR="./${APP_DIR}/keys/validator/keystore"
+# 查找 keystore 文件
+UTC_FILE=$(find "$KEYSTORE_DIR" -name "UTC--*" -type f 2>/dev/null | head -n 1)
+if [ -z "$UTC_FILE" ]; then
+    # 输出错误信息到标准错误，不干扰地址输出
+    echo "警告: 未找到 $APP_DIR 的 keystore 文件" >&2
+    echo "跳过验证者地址提取"
+    exit 0
+fi
+# 提取地址 (最后一个'--'之后的部分)
+ADDRESS=$(basename "$UTC_FILE" | awk -F'--' '{print $NF}')
+# 根据格式输出
+if [ "$FORMAT" = "-raw" ]; then
+    echo "$ADDRESS"          # 纯十六进制，不带0x
+else
+    echo "0x${ADDRESS}"      # 带0x前缀 (默认)
+fi
 echo "=== 地址提取完成 ==="
+
+CONFIG_FILE="app/config/config.toml"
+
+# VALIDATOR_INDEX: 001 -> 0
+BOOTSTRAP_INDEX=$((10#$VALIDATOR_INDEX - 1))
+
+echo "👉 使用 BootstrapNodes 索引: ${BOOTSTRAP_INDEX}"
+
+if [ ! -f "$CONFIG_FILE" ]; then
+  echo "❌ 未找到 $CONFIG_FILE"
+  exit 1
+fi
+
+NEW_NODE="${ENODE_ID}@${PUBLIC_IP}:${PORT}"
+
+echo "👉 将替换为: enode://${NEW_NODE}"
+
+# 只在 BootstrapNodes 数组内，替换第 N 个元素
+awk -v idx="$BOOTSTRAP_INDEX" -v new="\"enode://${NEW_NODE}\"" '
+/BootstrapNodes = \[/ { in_list=1; count=0 }
+in_list && /^\s*"/ {
+  if (count == idx) {
+    print "    " new ","
+    count++
+    next
+  }
+  count++
+}
+in_list && /\]/ { in_list=0 }
+{ print }
+' "$CONFIG_FILE" > "${CONFIG_FILE}.tmp" && mv "${CONFIG_FILE}.tmp" "$CONFIG_FILE"
+
+echo "✅ config.toml BootstrapNodes[${BOOTSTRAP_INDEX}] 已自动更新"
