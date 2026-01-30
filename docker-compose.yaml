@@ -3,7 +3,7 @@ networks:
 
 services:
   generate_genesis:
-    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/generate-genesis:mainnet-22e5a6-20260130132050
+    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/generate-genesis:mainnet-ebe0c2-20260130132619
     container_name: generate_genesis
     networks:
       chain_net:
