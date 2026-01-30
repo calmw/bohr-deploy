@@ -117,10 +117,10 @@ fi
 
 NEW_NODE="${ENODE_ID}@${PUBLIC_IP}:${PORT}"
 
-echo "👉 将替换为: enode://${NEW_NODE}"
+echo "👉 将替换为: ${NEW_NODE}"
 
 # 只在 BootstrapNodes 数组内，替换第 N 个元素
-awk -v idx="$BOOTSTRAP_INDEX" -v new="\"enode://${NEW_NODE}\"" '
+awk -v idx="$BOOTSTRAP_INDEX" -v new="\"${NEW_NODE}\"" '
 /BootstrapNodes = \[/ { in_list=1; count=0 }
 in_list && /^\s*"/ {
   if (count == idx) {
