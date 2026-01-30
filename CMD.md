@@ -3,6 +3,8 @@
 
 yum install git && yum install tree && git config --global user.email "you@example.com" && git config --global user.name "Your Name"
 
+docker-compose up -d generate_genesis
+
 docker logs -f generate_genesis
 
 docker logs -f validator_node
