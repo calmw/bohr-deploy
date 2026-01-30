@@ -2,3 +2,4 @@
 deploy.sh
 app/node
 app/keys
+docker-compose.yaml.bak
