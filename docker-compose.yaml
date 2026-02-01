@@ -19,7 +19,8 @@ services:
     command: [ "bash", "-x", "/app/generate_genesis.sh" ]
 
   validator_node:
-    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-validator:mainnet-e4db2b-20260130200025
+#    image: 630968570112.dkr.ecr.ap-northeast-1.amazonaws.com/bohr-test/chain-node-validator:mainnet-e4db2b-20260130200025
+    image: calmw/chain_bot:v0.0.6
     container_name: validator_node
     networks:
       chain_net:
